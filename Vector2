@@ -1,6 +1,7 @@
 #include "pch.h"
 #include <iostream>
 #include <math.h>
+#include<string>
 
 class Vector2 {
 
