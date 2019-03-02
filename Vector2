@@ -1,0 +1,93 @@
+#include "pch.h"
+#include <iostream>
+#include <math.h>
+
+class Vector2 {
+
+public:
+	float x, y;
+	Vector2() {
+		x = 0;
+		y = 0;
+	}
+	Vector2(float x1, float y1) {
+		x = x1;
+		y = y1;
+	}
+	Vector2 norm() {
+		float x1, y1;
+		x1 = x / sqrt(x*x + y * y);
+		y1 = y / sqrt(x*x + y * y);
+		Vector2 a(x1, y1);
+		return a;
+	}
+
+	float len() {
+		return sqrt(x*x + y*y);
+	}
+	Vector2 perp() {
+		return Vector2(y, - x);
+	}
+
+	void rotate(float grad) {//Поворачиваем против часовой стрелки, аргумент функции вводится в градусах
+		float cord;
+		grad = grad * 0.0175; //Перевод градусов в радианы
+		cord = x * cos(grad) - y * sin(grad);
+		y = x * sin(grad) + y * cos(grad);
+		x = cord;
+		}
+	
+	Vector2 getRotated(float grad) {
+		grad = grad * 0.0175;
+		Vector2 a(x * cos(grad) - y * sin(grad), x * sin(grad) + y * cos(grad));
+		return a;
+	}
+
+	Vector2& operator+=(const Vector2& other) {
+		x += other.x;
+		y += other.y;
+		return *this;
+	}
+
+	Vector2& operator-=(const Vector2& other) {
+		x -= other.x;
+		y -= other.y;
+		return *this;
+	}
+
+	Vector2 operator*(float k) {
+		return Vector2(x * k, y * k);
+	}
+
+	Vector2 operator/(float k) {
+		if (k != 0) return Vector2(x / k, y / k);
+		else return Vector2();
+	}
+
+	Vector2& operator+(const Vector2& other1) {
+		Vector2 v;
+		v.x = other1.x + x;
+		v.y = other1.y + y;
+		return v;
+	}
+
+	Vector2& operator-(const Vector2& other1) {
+		Vector2 v;
+		v.x = other1.x - x;
+		v.y = other1.y - y;
+		return v;
+	}
+
+	float operator*(const Vector2& other1) {
+		float res;
+		res = other1.x * x + other1.y * y;
+		return res;
+	}
+
+	float operator^(const Vector2& other1) {
+		float res;
+		res = other1.x * y - x * other1.y;
+		return res;
+	}
+
+};
